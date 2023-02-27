@@ -1,5 +1,8 @@
 from fastapi import FastAPI
 
+#cors 
+from fastapi.middleware.cors import CORSMiddleware
+
 # controllers
 from app.routes.index import sintaxis_verify
 
@@ -18,6 +21,14 @@ def get_application() -> FastAPI:
         version="1.0.0",
         openapi_tags=metadata,
     )
+
+    application.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+    )   
 
     application.include_router(sintaxis_verify, prefix="/api")
 
